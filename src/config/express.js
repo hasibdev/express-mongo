@@ -1,9 +1,8 @@
+const morgan = require('morgan')
 import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
-
-const morgan = require('morgan')
-
+import apiRoutes from '../routes/api'
 
 import { logs } from './vars'
 
@@ -16,8 +15,6 @@ app.use(morgan(logs))
 app.use(helmet())
 app.use(cors())
 
-app.get('/', (req, res) => {
-   res.send('Hello world')
-})
+app.use('/api', apiRoutes)
 
 export { app }
