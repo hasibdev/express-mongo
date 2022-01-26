@@ -24,8 +24,8 @@ const schema = new Schema({
    },
    guard: {
       type: String,
-      default: 'users'
+      default: 'admins'
    }
 })
 
-export default model('User', schema)
+export default model('Admin', schema)
