@@ -2,7 +2,7 @@ import faker from '@faker-js/faker'
 import User from "../models/User"
 
 const seed = async function () {
-   const count = 10
+   const count = 300
    const users = []
 
    for (let u = 0; u < count; u++) {
