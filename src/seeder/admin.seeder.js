@@ -35,7 +35,7 @@ rl.question('First Name: ', firstName => {
                   console.log('Operation Complete!')
                } catch (error) {
                   console.log('Operation Fail!')
-                  console.log(error)
+                  console.log(error.message)
                } finally {
                   process.exit(0)
                   // return rl.close()

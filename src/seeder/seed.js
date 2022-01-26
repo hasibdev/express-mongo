@@ -4,4 +4,11 @@ import userSeeder from './users.seeder'
 
 mongoose.connect()
 
-userSeeder()
+async function run() {
+   await userSeeder()
+
+   console.log('Seed Complete')
+   process.exit(0)
+}
+
+run()
