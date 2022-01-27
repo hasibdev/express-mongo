@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true })
 router.get('/', controller.getAll)
 router.get('/:id', controller.getOne)
 router.post('/', validation('create'), controller.create)
-router.put('/:id', controller.update)
+router.put('/:id', validation('update'), controller.update)
 router.delete('/:id', controller.destroy)
 
 export default router

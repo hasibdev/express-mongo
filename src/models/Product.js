@@ -7,6 +7,7 @@ const schema = new Schema({
    },
    description: {
       type: String,
+      default: null
    },
    price: {
       type: Number,

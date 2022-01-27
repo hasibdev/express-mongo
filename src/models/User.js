@@ -21,6 +21,7 @@ const schema = new Schema({
    phone: {
       type: String,
       required: false,
+      default: null,
       trim: true,
    },
    password: {
