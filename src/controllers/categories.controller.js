@@ -1,6 +1,10 @@
 import Category from "../models/Category"
 import paginated from "../helpers/paginated"
 
+/**
+ * Get List of Data
+ * @route GET api/categories
+ */
 const getAll = async (req, res) => {
    try {
       const data = await Category.find()
@@ -10,6 +14,10 @@ const getAll = async (req, res) => {
    }
 }
 
+/**
+ * Get single Data
+ * @route GET api/categories/:id
+ */
 const getOne = async (req, res) => {
    try {
       const data = await Category.findById(req.params.id)
@@ -21,6 +29,11 @@ const getOne = async (req, res) => {
       res.status(500).json({ error })
    }
 }
+
+/**
+ * Create new Data
+ * @route POST api/categories
+ */
 const create = async (req, res) => {
    const { name, description } = req.body
    try {
@@ -32,6 +45,10 @@ const create = async (req, res) => {
    }
 }
 
+/**
+ * Update Data
+ * @route PUT api/categories/:id
+ */
 const update = async (req, res) => {
    const { name, description } = req.body
    const { id } = req.params
@@ -48,6 +65,10 @@ const update = async (req, res) => {
    }
 }
 
+/**
+ * Delete Data
+ * @route DELETE api/categories/:id
+ */
 const destroy = async (req, res) => {
    try {
       const data = await Category.findByIdAndDelete(req.params.id)

@@ -1,7 +1,14 @@
 import User from "../models/User"
 import paginated from "../helpers/paginated"
 
+
+/**
+ * Get List of Data
+ * @route GET api/users
+ */
 const getAll = async (req, res) => {
+   const { page = 1, perPage = 10 } = req.query
+
    try {
       const data = await paginated(User)
       res.json({ data })
@@ -10,6 +17,10 @@ const getAll = async (req, res) => {
    }
 }
 
+/**
+ * Get single Data
+ * @route GET api/users/:id
+ */
 const getOne = async (req, res) => {
    try {
       const data = await User.findById(req.params.id).select('-password')
@@ -21,6 +32,11 @@ const getOne = async (req, res) => {
       res.status(500).json({ error })
    }
 }
+
+/**
+ * Create new Data
+ * @route POST api/users
+ */
 const create = async (req, res) => {
    const { firstName, lastName, email, password, phone } = req.body
    try {
@@ -32,9 +48,14 @@ const create = async (req, res) => {
    }
 }
 
+/**
+ * Update Data
+ * @route PUT api/users/:id
+ */
 const update = async (req, res) => {
    const { firstName, lastName, email, phone } = req.body
    const { id } = req.params
+
    try {
       const data = await User.findByIdAndUpdate(id, { firstName, lastName, email, phone })
 
@@ -48,6 +69,10 @@ const update = async (req, res) => {
    }
 }
 
+/**
+ * Delete Data
+ * @route DELETE api/users/:id
+ */
 const destroy = async (req, res) => {
    try {
       const data = await User.findByIdAndDelete(req.params.id)
