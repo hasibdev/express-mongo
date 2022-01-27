@@ -7,9 +7,18 @@ const schema = new Schema({
    },
    description: {
       type: String,
+   },
+   price: {
+      type: Number,
+      required: true
+   },
+   category: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Category'
    }
 }, {
    timestamps: true
 })
 
-export default model('Category', schema)
+export default model('Product', schema)

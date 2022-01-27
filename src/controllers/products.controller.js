@@ -1,9 +1,9 @@
-import Category from "../models/Category"
+import Product from "../models/Product"
 import paginated from "../helpers/paginated"
 
 const getAll = async (req, res) => {
    try {
-      const data = await Category.find()
+      const data = await Product.find().populate('category')
       res.json({ data })
    } catch (error) {
       res.status(500).json({ error })
@@ -12,9 +12,9 @@ const getAll = async (req, res) => {
 
 const getOne = async (req, res) => {
    try {
-      const data = await Category.findById(req.params.id)
+      const data = await Product.findById(req.params.id)
       if (!data) {
-         return res.status(404).json({ message: 'Category not found!' })
+         return res.status(404).json({ message: 'Product not found!' })
       }
       res.json({ data })
    } catch (error) {
@@ -22,9 +22,9 @@ const getOne = async (req, res) => {
    }
 }
 const create = async (req, res) => {
-   const { name, description } = req.body
+   const { name, description, price, category } = req.body
    try {
-      const data = await Category.create({ name, description })
+      const data = await Product.create({ name, description, price, category })
 
       res.json({ data })
    } catch (error) {
@@ -33,16 +33,16 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-   const { name, description } = req.body
+   const { name, description, price, categoryId } = req.body
    const { id } = req.params
    try {
-      const data = await Category.findByIdAndUpdate(id, { name, description })
+      const data = await Product.findByIdAndUpdate(id, { name, description, price, categoryId })
 
       if (!data) {
-         return res.status(404).json({ message: 'Category not found!' })
+         return res.status(404).json({ message: 'Product not found!' })
       }
 
-      res.json({ data: await Category.findById(id) })
+      res.json({ data: await Product.findById(id) })
    } catch (error) {
       res.status(500).json({ error })
    }
@@ -50,10 +50,10 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
    try {
-      const data = await Category.findByIdAndDelete(req.params.id)
+      const data = await Product.findByIdAndDelete(req.params.id)
 
       if (!data) {
-         return res.status(404).json({ message: 'Category not found!' })
+         return res.status(404).json({ message: 'Product not found!' })
       }
 
       res.json({ message: 'Deleted Successfully!' })
