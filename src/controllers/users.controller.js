@@ -1,5 +1,6 @@
 import User from "../models/User"
 import paginated from "../helpers/paginated"
+const { validationResult } = require('express-validator')
 
 
 /**
@@ -38,6 +39,11 @@ const getOne = async (req, res) => {
  * @route POST api/users
  */
 const create = async (req, res) => {
+   const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+   }
+
    const { firstName, lastName, email, password, phone } = req.body
    try {
       const data = await User.create({ firstName, lastName, email, password, phone })
@@ -53,10 +59,13 @@ const create = async (req, res) => {
  * @route PUT api/users/:id
  */
 const update = async (req, res) => {
+   const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+   }
+
    const { firstName, lastName, email, phone } = req.body
    const { id } = req.params
-
-
    try {
       const data = await User.findByIdAndUpdate(id, { firstName, lastName, email, phone })
 
