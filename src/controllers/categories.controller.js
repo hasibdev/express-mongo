@@ -6,7 +6,7 @@ import paginated from "../helpers/paginated"
  * @route GET api/categories
  */
 const getAll = async (req, res) => {
-   const { limit, skip, meta } = await paginated(User, req)
+   const { limit, skip, meta } = await paginated(Category, req)
 
    try {
       const data = await Category.find().limit(limit).skip(skip)

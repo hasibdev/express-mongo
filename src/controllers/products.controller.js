@@ -7,7 +7,7 @@ import paginated from "../helpers/paginated"
  */
 const getAll = async (req, res) => {
    const { category } = req.query
-   const { limit, skip, meta } = await paginated(User, req)
+   const { limit, skip, meta } = await paginated(Product, req)
 
    const getQuery = () => {
       return {
