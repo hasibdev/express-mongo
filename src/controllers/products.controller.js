@@ -1,5 +1,6 @@
 import Product from "../models/Product"
 import paginated from "../helpers/paginated"
+const { validationResult } = require('express-validator')
 
 /**
  * Get List of Data
@@ -49,6 +50,11 @@ const getOne = async (req, res) => {
  * @route POST api/products
  */
 const create = async (req, res) => {
+   const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+   }
+
    const { name, description, price, category } = req.body
    try {
       const data = await Product.create({ name, description, price, category })
@@ -64,6 +70,11 @@ const create = async (req, res) => {
  * @route PUT api/products:id
  */
 const update = async (req, res) => {
+   const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+   }
+
    const { name, description, price, categoryId } = req.body
    const { id } = req.params
    try {
