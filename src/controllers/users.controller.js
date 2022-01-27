@@ -7,11 +7,11 @@ import paginated from "../helpers/paginated"
  * @route GET api/users
  */
 const getAll = async (req, res) => {
-   const { page = 1, perPage = 10 } = req.query
-
    try {
-      const data = await paginated(User)
-      res.json({ data })
+      const { limit, skip, meta } = await paginated(User, req)
+
+      const data = await User.find().limit(limit).skip(skip)
+      res.json({ data, meta })
    } catch (error) {
       res.status(500).json({ error })
    }
@@ -55,6 +55,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
    const { firstName, lastName, email, phone } = req.body
    const { id } = req.params
+
 
    try {
       const data = await User.findByIdAndUpdate(id, { firstName, lastName, email, phone })

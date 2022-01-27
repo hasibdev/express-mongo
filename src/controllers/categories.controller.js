@@ -6,9 +6,11 @@ import paginated from "../helpers/paginated"
  * @route GET api/categories
  */
 const getAll = async (req, res) => {
+   const { limit, skip, meta } = await paginated(User, req)
+
    try {
-      const data = await Category.find()
-      res.json({ data })
+      const data = await Category.find().limit(limit).skip(skip)
+      res.json({ data, meta })
    } catch (error) {
       res.status(500).json({ error })
    }

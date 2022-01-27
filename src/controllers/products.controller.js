@@ -7,6 +7,7 @@ import paginated from "../helpers/paginated"
  */
 const getAll = async (req, res) => {
    const { category } = req.query
+   const { limit, skip, meta } = await paginated(User, req)
 
    const getQuery = () => {
       return {
@@ -15,8 +16,13 @@ const getAll = async (req, res) => {
    }
 
    try {
-      const data = await Product.find(getQuery()).populate('category')
-      res.json({ data })
+      const data = await Product
+         .find(getQuery())
+         .limit(limit)
+         .skip(skip)
+         .populate('category')
+
+      res.json({ data, meta })
    } catch (error) {
       res.status(500).json({ error })
    }
