@@ -1,9 +1,9 @@
 import User from "../models/User"
+import paginated from "../helpers/paginated"
 
 const getAll = async (req, res) => {
    try {
-      const data = await User.find()
-
+      const data = await paginated(User)
       res.json({ data })
    } catch (error) {
       res.status(500).json({ error })
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 
 const getOne = async (req, res) => {
    try {
-      const data = await User.findById(req.params.id)
+      const data = await User.findById(req.params.id).select('-password')
       if (!data) {
          return res.status(404).json({ message: 'User not found!' })
       }
@@ -50,7 +50,11 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
    try {
-      await User.deleteOne({ _id: req.params.id })
+      const data = await User.findByIdAndDelete(req.params.id)
+
+      if (!data) {
+         return res.status(404).json({ message: 'User not found!' })
+      }
 
       res.json({ message: 'Deleted Successfully!' })
    } catch (error) {

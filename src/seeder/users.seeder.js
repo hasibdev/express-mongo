@@ -4,9 +4,10 @@ import User from "../models/User"
 const seed = async function () {
    const count = 300
    const users = []
+   await User.remove()
 
    for (let u = 0; u < count; u++) {
-      users.push(new User({
+      users.push(User.create({
          firstName: faker.name.firstName(),
          lastName: faker.name.lastName(),
          email: faker.internet.email(),
@@ -15,12 +16,10 @@ const seed = async function () {
       }))
    }
 
-   await User.remove()
-   for (const user of users) {
-      await User.create(user)
-   }
+   // Promise.all(users).then(() => console.log("Added All Users"))
+
    // users.forEach(user => )
-   return Promise.resolve()
+   return Promise.all(users)
 }
 
 export default seed

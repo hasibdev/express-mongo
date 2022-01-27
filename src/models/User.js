@@ -4,26 +4,36 @@ import { Schema, model } from 'mongoose'
 const schema = new Schema({
    firstName: {
       type: String,
-      required: true
+      required: true,
+      trim: true,
    },
    lastName: {
       type: String,
-      required: true
+      required: true,
+      trim: true,
    },
    email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
+      trim: true,
    },
    phone: {
       type: String,
       required: false,
+      trim: true,
    },
    password: {
       type: String,
-      required: true
+      required: true,
+      minlength: 6,
+      maxlength: 128
    },
    verified: {
+      type: Boolean,
+      default: false
+   },
+   blocked: {
       type: Boolean,
       default: false
    },
@@ -31,6 +41,8 @@ const schema = new Schema({
       type: String,
       default: 'users'
    }
+}, {
+   timestamps: true
 })
 
 schema.pre('save', async function (next) {
