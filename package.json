@@ -5,7 +5,7 @@
    "main": "src/index.js",
    "scripts": {
       "start": "node src/index.js",
-      "dev": "nodemon --inspect src/index.js",
+      "dev": "nodemon --config src/config/nodemon.json --inspect src/index.js",
       "seed": "node -r esm src/seeder/seed.js",
       "seed:admin": "node -r esm src/seeder/admin.seeder.js"
    },

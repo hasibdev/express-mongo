@@ -10,7 +10,7 @@ const options = {
       },
       servers: [{ url: 'http://localhost:8000' }]
    },
-   apis: ['./routes/api/*.js'], // files containing annotations as above
+   apis: ['src/apidocs/*.yaml'], // files containing annotations as above
 }
 
 const swaggerSpecs = swaggerJsdoc(options)

@@ -1,0 +1,27 @@
+components:
+   schemas:
+      Category:
+         type: Object
+         required: -name
+         properties:
+            id:
+               type: ObjectId
+               description: the auto-generated id
+            name:
+               type: string
+               description: category name
+            description:
+               type: string
+               description: category description
+         example:
+            id: 01234569
+            name: Category name
+            description: Category description
+
+paths:
+   /api/categories:
+      get:
+         summary: Returns the list of categories.
+         responses:
+            200:
+               description: get the list of categories

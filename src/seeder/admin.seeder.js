@@ -29,8 +29,8 @@ rl.question('First Name: ', firstName => {
                   return rl.close()
                }
 
-               mongoose.connect()
                try {
+                  await mongoose.connect()
                   await Admin.create({ firstName, lastName, email, password })
                   console.log('Operation Complete!')
                } catch (error) {
