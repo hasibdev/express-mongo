@@ -1,55 +1,65 @@
 components:
    schemas:
-      Category:
+      Product:
          type: Object
-         required: ["name"]
+         required:
+            - name
+            - price
+            - category
          properties:
             _id:
                type: string
                description: the auto-generated id
             name:
                type: string
-               description: category name
+               description: Product name
             description:
                type: string
-               description: category description
+               description: Product description
+            price:
+               type: number
+               description: Product price
+            category:
+               type: string
+               description: Category ID
          example:
             _id: 61f276d5a0fdcfd610aab2e8
-            name: Category name
-            description: Category description
+            name: Product name
+            description: Product description
+            price: 200.50
+            category: 61f276d5a0fdcfd610aab2e8
             createdAt: 2022-01-27T10:41:25.454Z
             updatedAt: 2022-01-27T10:41:25.454Z
 tags:
-   name: Categories
-   description: Manage Categories Api
+   name: Products
+   description: Manage Products Api
 
 paths:
-   /api/categories:
+   /api/products:
       get:
-         summary: Returns the list of categories.
-         tags: ["Categories"]
+         summary: Returns the list of products.
+         tags: ["Products"]
          responses:
             200:
-               description: Success
+               description: get the list of products
                content:
                   application/json:
                      schema:
                         type: array
                         items:
-                           $ref: "#/components/schemas/Category"
+                           $ref: "#/components/schemas/Product"
 
-   /api/categories/{id}:
+   /api/products/{id}:
       get:
-         summary: Get the category by id
-         tags: ["Categories"]
+         summary: Get product by id
+         tags: ["Products"]
          parameters:
             - in: path
               name: id
               required: true
-              description: Category id
+              description: product id
               schema:
                  type: string
-
          responses:
             200:
                description: Success
@@ -58,7 +68,7 @@ paths:
                      schema:
                         type: object
                         items:
-                           $ref: "#/components/schemas/Category"
+                           $ref: "#/components/schemas/Product"
             404:
                description: Not found
                content:
